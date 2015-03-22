@@ -94,8 +94,8 @@
                                     <action selector="playFastAudio:" destination="4YI-C0-Xf1" eventType="touchUpInside" id="AtC-z9-9o3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qO3-39-mzG">
-                                <rect key="frame" x="275" y="520" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qO3-39-mzG">
+                                <rect key="frame" x="304" y="520" width="50" height="50"/>
                                 <state key="normal" image="stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -126,12 +126,27 @@
                                 <state key="normal" image="echo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playEchoEffect:" destination="4YI-C0-Xf1" eventType="touchUpInside" id="Vuo-r4-RK5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJX-vF-6B6">
                                 <rect key="frame" x="455" y="374" width="99" height="99"/>
                                 <state key="normal" image="reverb">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playReverbEffect:" destination="4YI-C0-Xf1" eventType="touchUpInside" id="Fe7-iv-Xr2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kt6-kr-NJR">
+                                <rect key="frame" x="244" y="520" width="50" height="50"/>
+                                <state key="normal" image="play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playAudioNormal:" destination="4YI-C0-Xf1" eventType="touchUpInside" id="lq3-Ot-JrW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.23137254901960785" green="0.47843137254901963" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -141,13 +156,16 @@
                             <constraint firstItem="QJX-vF-6B6" firstAttribute="top" secondItem="gye-qe-6Xa" secondAttribute="bottom" constant="30" id="3LU-IG-6y1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0Ac-NB-3w9" secondAttribute="trailing" constant="30" id="9zp-IS-ZxP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QJX-vF-6B6" secondAttribute="trailing" constant="30" id="CRm-Lh-udP"/>
+                            <constraint firstItem="9xp-DA-STB" firstAttribute="top" secondItem="Kt6-kr-NJR" secondAttribute="bottom" constant="30" id="DGD-XB-I8d"/>
                             <constraint firstItem="P1X-1x-KAF" firstAttribute="leading" secondItem="a4J-6D-hhj" secondAttribute="leadingMargin" constant="30" id="EKE-Dw-iKZ"/>
                             <constraint firstItem="P1X-1x-KAF" firstAttribute="top" secondItem="qse-UK-x3P" secondAttribute="bottom" constant="30" id="Eg4-gz-Flu"/>
-                            <constraint firstAttribute="centerX" secondItem="qO3-39-mzG" secondAttribute="centerX" id="FhA-wy-H7r"/>
+                            <constraint firstAttribute="centerX" secondItem="qO3-39-mzG" secondAttribute="centerX" constant="-29" id="FhA-wy-H7r"/>
                             <constraint firstItem="9xp-DA-STB" firstAttribute="top" secondItem="qO3-39-mzG" secondAttribute="bottom" constant="30" id="Kbo-ya-xSH"/>
                             <constraint firstItem="PDV-1W-B9A" firstAttribute="top" secondItem="P1X-1x-KAF" secondAttribute="bottom" constant="30" id="OOE-Up-4mj"/>
+                            <constraint firstItem="qO3-39-mzG" firstAttribute="leading" secondItem="Kt6-kr-NJR" secondAttribute="trailing" constant="10" id="QY3-EJ-5XO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gye-qe-6Xa" secondAttribute="trailing" constant="30" id="Wzn-Bq-HwL"/>
                             <constraint firstItem="qse-UK-x3P" firstAttribute="top" secondItem="gXl-3K-o3e" secondAttribute="bottom" constant="50" id="YyM-dU-Dy3"/>
+                            <constraint firstAttribute="centerX" secondItem="Kt6-kr-NJR" secondAttribute="centerX" constant="31" id="ebt-h4-1fH"/>
                             <constraint firstItem="gye-qe-6Xa" firstAttribute="top" secondItem="0Ac-NB-3w9" secondAttribute="bottom" constant="30" id="m2C-cM-ybY"/>
                             <constraint firstItem="PDV-1W-B9A" firstAttribute="leading" secondItem="a4J-6D-hhj" secondAttribute="leadingMargin" constant="30" id="nfM-FD-dUa"/>
                         </constraints>
@@ -185,6 +203,7 @@
         <image name="echo" width="99" height="99"/>
         <image name="fast" width="100" height="100"/>
         <image name="microphone" width="100" height="100"/>
+        <image name="play" width="49" height="49"/>
         <image name="reverb" width="99" height="99"/>
         <image name="slow" width="100" height="100"/>
         <image name="stop" width="50" height="50"/>

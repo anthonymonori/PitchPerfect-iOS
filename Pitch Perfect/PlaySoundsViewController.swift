@@ -12,7 +12,9 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
     
     @IBOutlet weak var btnStop: UIButton!
-    var player : AVAudioPlayer!
+    @IBOutlet weak var btnPlay: UIButton!
+    @IBOutlet weak var btnReset: UIButton!
+    
     var receivedAudio : RecordedAudio!
     var audioEngine : AVAudioEngine!
     var audioFile : AVAudioFile!
@@ -21,14 +23,9 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+        
+        // Make sure the stop button is not enabled from the start
         btnStop.enabled = false
-
-        audioEngine = AVAudioEngine()
-        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
-
-        player = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
-        player.enableRate = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,45 +34,49 @@ class PlaySoundsViewController: UIViewController {
     }
 
     @IBAction func playSlowAudio(sender: UIButton) {
-        // play audio at a slow speed
-        playAudioAtSpeed(0.5)
+        // Call the playAudio method with default pitch and the given playback rate / 1.0 = default playback rate
+        playAudio(0, rate: 0.5)
     }
     
     @IBAction func playFastAudio(sender: UIButton) {
-        // play audio at a fast speed
-        playAudioAtSpeed(1.5)
+        // Call the playAudio method with default pitch and the given playback rate / 1.0 = default playback rate
+        playAudio(0, rate: 1.5)
     }
     
     @IBAction func stopAudio(sender: UIButton) {
         // Stop any audio
-        player.stop()
         audioPlayerNode.stop()
-        // Reset audio place
-        player.playAtTime(0.0)
-        // Disable
+        // Disable the stop button
         btnStop.enabled = false
     }
     
-    private func playAudioAtSpeed(speed:Float) {
-        // enable the Stop button
-        btnStop.enabled = true
-        // Good practice to stop before starting
-        player.stop()
-        // Change the rate of the player / 1 = normal
-        player.rate = speed
-        // Play the audio file
-        player.play()
+    @IBAction func playAudioNormal(sender: UIButton) {
+        // Call the playAudio method with default pitch and the default playback rate
+        playAudio(0, rate: 1)
     }
 
     @IBAction func playChipmunkEffect(sender: UIButton) {
-        playAudioWithPitch(1000)
+        // Call the playAudio method with default playback rate and the given pitch / 0 = default playback rate
+        playAudio(1000, rate: 1)
     }
     
     @IBAction func playDarthVaderEffect(sender: UIButton) {
-        playAudioWithPitch(-1000)
+        // Call the playAudio method with default playback rate and the given pitch / 0 = default playback rate
+        playAudio(-1000, rate: 1)
     }
     
-    private func playAudioWithPitch(pitch : Float) {
+    @IBAction func playEchoEffect(sender: UIButton) {
+        playAudio(0, rate: 1)
+    }
+    
+    @IBAction func playReverbEffect(sender: UIButton) {
+        playAudio(0, rate: 1)
+    }
+    
+    private func playAudio(pitch : Float, rate: Float) {
+        audioEngine = AVAudioEngine()
+        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        
         audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
@@ -83,15 +84,24 @@ class PlaySoundsViewController: UIViewController {
         changePitchEffect.pitch = pitch
         audioEngine.attachNode(changePitchEffect)
         
-        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
+        var changePlaybackRateEffect = AVAudioUnitVarispeed()
+        changePlaybackRateEffect.rate = rate
+        audioEngine.attachNode(changePlaybackRateEffect)
         
+        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
+        audioEngine.connect(changePitchEffect, to: changePlaybackRateEffect, format: nil)
+        audioEngine.connect(changePlaybackRateEffect, to: audioEngine.outputNode, format: nil)
+        
+        // enable the Stop button
+        btnStop.enabled = true
+        // Good practice to stop before starting
+        audioPlayerNode.stop()
+        // Play the audio file
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
-        
         audioPlayerNode.play()
     }
-    
+
     /*
     // MARK: - Navigation
 
