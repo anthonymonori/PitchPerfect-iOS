@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2Da-3o-f3y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D105g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2Da-3o-f3y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -95,7 +95,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qO3-39-mzG">
-                                <rect key="frame" x="275" y="500" width="50" height="50"/>
+                                <rect key="frame" x="275" y="520" width="50" height="50"/>
                                 <state key="normal" image="stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -104,7 +104,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1X-1x-KAF">
-                                <rect key="frame" x="46" y="264" width="100" height="100"/>
+                                <rect key="frame" x="46" y="244" width="100" height="100"/>
                                 <state key="normal" image="chipmunk">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -113,7 +113,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gye-qe-6Xa">
-                                <rect key="frame" x="454" y="264" width="100" height="100"/>
+                                <rect key="frame" x="454" y="244" width="100" height="100"/>
                                 <state key="normal" image="darthvader">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -121,19 +121,35 @@
                                     <action selector="playDarthVaderEffect:" destination="4YI-C0-Xf1" eventType="touchUpInside" id="rQL-1H-L2r"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDV-1W-B9A">
+                                <rect key="frame" x="46" y="374" width="99" height="99"/>
+                                <state key="normal" image="echo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJX-vF-6B6">
+                                <rect key="frame" x="455" y="374" width="99" height="99"/>
+                                <state key="normal" image="reverb">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.23137254901960785" green="0.47843137254901963" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254901960785" green="0.47843137254901963" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0Ac-NB-3w9" firstAttribute="top" secondItem="gXl-3K-o3e" secondAttribute="bottom" constant="50" id="14b-jt-bQv"/>
                             <constraint firstItem="qse-UK-x3P" firstAttribute="leading" secondItem="a4J-6D-hhj" secondAttribute="leadingMargin" constant="30" id="21u-nr-hyx"/>
+                            <constraint firstItem="QJX-vF-6B6" firstAttribute="top" secondItem="gye-qe-6Xa" secondAttribute="bottom" constant="30" id="3LU-IG-6y1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0Ac-NB-3w9" secondAttribute="trailing" constant="30" id="9zp-IS-ZxP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QJX-vF-6B6" secondAttribute="trailing" constant="30" id="CRm-Lh-udP"/>
                             <constraint firstItem="P1X-1x-KAF" firstAttribute="leading" secondItem="a4J-6D-hhj" secondAttribute="leadingMargin" constant="30" id="EKE-Dw-iKZ"/>
-                            <constraint firstItem="P1X-1x-KAF" firstAttribute="top" secondItem="qse-UK-x3P" secondAttribute="bottom" constant="50" id="Eg4-gz-Flu"/>
+                            <constraint firstItem="P1X-1x-KAF" firstAttribute="top" secondItem="qse-UK-x3P" secondAttribute="bottom" constant="30" id="Eg4-gz-Flu"/>
                             <constraint firstAttribute="centerX" secondItem="qO3-39-mzG" secondAttribute="centerX" id="FhA-wy-H7r"/>
-                            <constraint firstItem="9xp-DA-STB" firstAttribute="top" secondItem="qO3-39-mzG" secondAttribute="bottom" constant="50" id="Kbo-ya-xSH"/>
+                            <constraint firstItem="9xp-DA-STB" firstAttribute="top" secondItem="qO3-39-mzG" secondAttribute="bottom" constant="30" id="Kbo-ya-xSH"/>
+                            <constraint firstItem="PDV-1W-B9A" firstAttribute="top" secondItem="P1X-1x-KAF" secondAttribute="bottom" constant="30" id="OOE-Up-4mj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gye-qe-6Xa" secondAttribute="trailing" constant="30" id="Wzn-Bq-HwL"/>
                             <constraint firstItem="qse-UK-x3P" firstAttribute="top" secondItem="gXl-3K-o3e" secondAttribute="bottom" constant="50" id="YyM-dU-Dy3"/>
-                            <constraint firstItem="gye-qe-6Xa" firstAttribute="top" secondItem="0Ac-NB-3w9" secondAttribute="bottom" constant="50" id="m2C-cM-ybY"/>
+                            <constraint firstItem="gye-qe-6Xa" firstAttribute="top" secondItem="0Ac-NB-3w9" secondAttribute="bottom" constant="30" id="m2C-cM-ybY"/>
+                            <constraint firstItem="PDV-1W-B9A" firstAttribute="leading" secondItem="a4J-6D-hhj" secondAttribute="leadingMargin" constant="30" id="nfM-FD-dUa"/>
                         </constraints>
                     </view>
                     <connections>
@@ -166,8 +182,10 @@
     <resources>
         <image name="chipmunk" width="100" height="100"/>
         <image name="darthvader" width="100" height="100"/>
+        <image name="echo" width="99" height="99"/>
         <image name="fast" width="100" height="100"/>
         <image name="microphone" width="100" height="100"/>
+        <image name="reverb" width="99" height="99"/>
         <image name="slow" width="100" height="100"/>
         <image name="stop" width="50" height="50"/>
     </resources>
