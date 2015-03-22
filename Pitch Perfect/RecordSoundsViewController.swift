@@ -80,10 +80,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
         // If successful
         if (flag) {
-            // Save the recorded audio
-            recordedAudio = RecordedAudio()
-            recordedAudio.filePathUrl = recorder.url
-            recordedAudio.title = recorder.url.lastPathComponent
+            // Save the recorded audio, by creating a new model object using the constructor
+            recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent)
         
             // Move to the next screen
             performSegueWithIdentifier("stopRecording", sender: recordedAudio)

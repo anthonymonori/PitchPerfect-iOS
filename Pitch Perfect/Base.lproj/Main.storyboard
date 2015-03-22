@@ -32,8 +32,8 @@
                                 <color key="textColor" red="0.14509803921568629" green="0.28235294117647058" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gf-Rh-bzq">
-                                <rect key="frame" x="275" y="500" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gf-Rh-bzq">
+                                <rect key="frame" x="304" y="520" width="50" height="50"/>
                                 <state key="normal" image="stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -41,14 +41,23 @@
                                     <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="3xS-RD-NM0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3VL-28-IqL">
+                                <rect key="frame" x="246" y="520" width="50" height="50"/>
+                                <state key="normal" image="pause">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.2891820043680246" green="0.56712350806899603" blue="0.9560287610619469" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="3VL-28-IqL" secondAttribute="bottom" constant="30" id="5TE-G1-jTJ"/>
                             <constraint firstAttribute="centerX" secondItem="Yp3-nt-wDF" secondAttribute="centerX" constant="-0.5" id="6o9-1q-N0q"/>
-                            <constraint firstAttribute="centerX" secondItem="1Gf-Rh-bzq" secondAttribute="centerX" id="FcR-ve-Uj0"/>
+                            <constraint firstAttribute="centerX" secondItem="1Gf-Rh-bzq" secondAttribute="centerX" constant="-29" id="Bjt-2C-85t"/>
                             <constraint firstItem="Yp3-nt-wDF" firstAttribute="top" secondItem="7KR-UE-GGG" secondAttribute="bottom" constant="13" id="H2o-St-UPk"/>
                             <constraint firstAttribute="centerX" secondItem="7KR-UE-GGG" secondAttribute="centerX" id="Y7l-hF-IB0"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1Gf-Rh-bzq" secondAttribute="bottom" constant="50" id="bgj-Ct-IgV"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1Gf-Rh-bzq" secondAttribute="bottom" constant="30" id="bgj-Ct-IgV"/>
+                            <constraint firstItem="1Gf-Rh-bzq" firstAttribute="leading" secondItem="3VL-28-IqL" secondAttribute="trailing" constant="10" id="k9i-Lu-Mdw"/>
+                            <constraint firstAttribute="centerX" secondItem="3VL-28-IqL" secondAttribute="centerX" constant="29" id="s7a-4b-mN4"/>
                             <constraint firstAttribute="centerY" secondItem="7KR-UE-GGG" secondAttribute="centerY" id="v4I-1E-XOP"/>
                         </constraints>
                     </view>
@@ -203,6 +212,7 @@
         <image name="echo" width="99" height="99"/>
         <image name="fast" width="100" height="100"/>
         <image name="microphone" width="100" height="100"/>
+        <image name="pause" width="49" height="49"/>
         <image name="play" width="49" height="49"/>
         <image name="reverb" width="99" height="99"/>
         <image name="slow" width="100" height="100"/>

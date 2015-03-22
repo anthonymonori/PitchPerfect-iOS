@@ -11,13 +11,13 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
     
+    // References to UI elements
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnPlay: UIButton!
     @IBOutlet weak var btnReset: UIButton!
     
+    // Global variables
     var receivedAudio : RecordedAudio!
-    var audioEngine : AVAudioEngine!
-    var audioFile : AVAudioFile!
     var audioPlayerNode : AVAudioPlayerNode!
 
     override func viewDidLoad() {
@@ -35,12 +35,12 @@ class PlaySoundsViewController: UIViewController {
 
     @IBAction func playSlowAudio(sender: UIButton) {
         // Call the playAudio method with default pitch and the given playback rate / 1.0 = default playback rate
-        playAudio(0, rate: 0.5)
+        playAudio(0, rate: 0.5, reverb: 0, echo: 0)
     }
     
     @IBAction func playFastAudio(sender: UIButton) {
         // Call the playAudio method with default pitch and the given playback rate / 1.0 = default playback rate
-        playAudio(0, rate: 1.5)
+        playAudio(0, rate: 1.5, reverb: 0, echo: 0)
     }
     
     @IBAction func stopAudio(sender: UIButton) {
@@ -52,50 +52,71 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func playAudioNormal(sender: UIButton) {
         // Call the playAudio method with default pitch and the default playback rate
-        playAudio(0, rate: 1)
+        playAudio(0, rate: 1, reverb: 0, echo: 0)
     }
 
     @IBAction func playChipmunkEffect(sender: UIButton) {
         // Call the playAudio method with default playback rate and the given pitch / 0 = default playback rate
-        playAudio(1000, rate: 1)
+        playAudio(1000, rate: 1, reverb: 0, echo: 0)
     }
     
     @IBAction func playDarthVaderEffect(sender: UIButton) {
         // Call the playAudio method with default playback rate and the given pitch / 0 = default playback rate
-        playAudio(-1000, rate: 1)
+        playAudio(-1000, rate: 1, reverb: 0, echo: 0)
     }
     
     @IBAction func playEchoEffect(sender: UIButton) {
-        playAudio(0, rate: 1)
+        playAudio(0, rate: 1, reverb: 0, echo: 0.2)
     }
     
     @IBAction func playReverbEffect(sender: UIButton) {
-        playAudio(0, rate: 1)
+        playAudio(0, rate: 1, reverb: 50.0, echo: 0)
     }
     
-    private func playAudio(pitch : Float, rate: Float) {
-        audioEngine = AVAudioEngine()
-        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
-        
+    private func playAudio(pitch : Float, rate: Float, reverb: Float, echo: Float) {
+        // Initialize variables
+        var audioEngine = AVAudioEngine()
         audioPlayerNode = AVAudioPlayerNode()
+        
+        // Get the recorded audio file
+        var audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        // Attach it to the audio segment
         audioEngine.attachNode(audioPlayerNode)
         
-        var changePitchEffect = AVAudioUnitTimePitch()
-        changePitchEffect.pitch = pitch
-        audioEngine.attachNode(changePitchEffect)
+        // Setting the pitch
+        var pitchEffect = AVAudioUnitTimePitch()
+        pitchEffect.pitch = pitch
+        audioEngine.attachNode(pitchEffect)
         
-        var changePlaybackRateEffect = AVAudioUnitVarispeed()
-        changePlaybackRateEffect.rate = rate
-        audioEngine.attachNode(changePlaybackRateEffect)
+        // Setting the platback-rate
+        var playbackRateEffect = AVAudioUnitVarispeed()
+        playbackRateEffect.rate = rate
+        audioEngine.attachNode(playbackRateEffect)
         
-        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-        audioEngine.connect(changePitchEffect, to: changePlaybackRateEffect, format: nil)
-        audioEngine.connect(changePlaybackRateEffect, to: audioEngine.outputNode, format: nil)
+        // Setting the reverb effect
+        var reverbEffect = AVAudioUnitReverb()
+        reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+        reverbEffect.wetDryMix = reverb
+        audioEngine.attachNode(reverbEffect)
+        
+        // Setting the echo effect on a specific interval
+        var echoEffect = AVAudioUnitDelay()
+        echoEffect.delayTime = NSTimeInterval(echo)
+        audioEngine.attachNode(echoEffect)
+
+        // Chain all these up, ending with the output
+        audioEngine.connect(audioPlayerNode, to: pitchEffect, format: nil)
+        audioEngine.connect(pitchEffect, to: playbackRateEffect, format: nil)
+        audioEngine.connect(playbackRateEffect, to: reverbEffect, format: nil)
+        audioEngine.connect(reverbEffect, to: echoEffect, format: nil)
+        audioEngine.connect(echoEffect, to: audioEngine.outputNode, format: nil)
         
         // enable the Stop button
         btnStop.enabled = true
+        
         // Good practice to stop before starting
         audioPlayerNode.stop()
+        
         // Play the audio file
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
