@@ -46,6 +46,9 @@
                                 <state key="normal" image="pause">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="pauseRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5c4-5y-yUE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.2891820043680246" green="0.56712350806899603" blue="0.9560287610619469" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,6 +66,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Record" id="wS3-Zd-L9c"/>
                     <connections>
+                        <outlet property="btnPlayback" destination="3VL-28-IqL" id="W7h-GD-4wd"/>
                         <outlet property="btnRecord" destination="7KR-UE-GGG" id="VVd-Rl-ng1"/>
                         <outlet property="btnStop" destination="1Gf-Rh-bzq" id="gXE-kR-Cwt"/>
                         <outlet property="lblRecording" destination="Yp3-nt-wDF" id="HZ7-VV-PFV"/>

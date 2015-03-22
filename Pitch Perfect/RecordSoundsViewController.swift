@@ -13,6 +13,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var lblRecording : UILabel!
     @IBOutlet weak var btnStop : UIButton!
     @IBOutlet weak var btnRecord : UIButton!
+    @IBOutlet weak var btnPlayback: UIButton!
     var audioRecorder : AVAudioRecorder!
     var recordedAudio : RecordedAudio!
     
@@ -25,8 +26,9 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
         
-        // Make sure the stop button is hidden from the start; only enable it once the recording has started
+        // Make sure the stop, pause button is hidden from the start; only enable it once the recording has started
         btnStop.hidden = true
+        btnPlayback.hidden = true
         
         // Make sure the recording button is enabled
         btnRecord.enabled = true
@@ -41,13 +43,14 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    
+    /** Function used to record audio; connected to the mic UI button **/
     @IBAction func recordAudio(sender: UIButton) {
         // Show text "recording in progress"
         lblRecording.text = "Recording in progress"
         
-        // Make sure the stop button is visible
+        // Make sure the stop, pause button is visible
         btnStop.hidden = false
+        btnPlayback.hidden = false
         
         // Make sure the record button is disabled until the current recording is ongoing
         btnRecord.enabled = false
@@ -74,6 +77,24 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.delegate = self
         audioRecorder.meteringEnabled = true // turns level metering on
         audioRecorder.record()
+    }
+    
+    /** Function used to pause/resume a recording; connected to the button on UI **/
+    @IBAction func pauseRecording(sender: UIButton) {
+        // If the recorder is currently recording
+        if (audioRecorder.recording) {
+            // Pause the recorder
+            audioRecorder.pause()
+            // Change the image of the button to resemble play
+            btnPlayback.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+        // If it's not recording
+        } else {
+            // Start the recording again; this should continue from where it was left;  don't use recordAtTime()!
+            audioRecorder.record()
+            // Set back the pause image for the button
+            btnPlayback.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+        }
+        
     }
     
     /** Called when the recording has been finished; this method is actually saving the file**/

@@ -18,5 +18,8 @@ class RecordedAudio: NSObject{
         self.title = title
     }
     
+    func getFilePath() -> NSURL {
+        return self.filePathUrl
+    }
     
 }

@@ -11,7 +11,7 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
     
-    // References to UI elements
+    // references to UI elements
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnPlay: UIButton!
     @IBOutlet weak var btnReset: UIButton!
@@ -19,6 +19,8 @@ class PlaySoundsViewController: UIViewController {
     // Global variables
     var receivedAudio : RecordedAudio!
     var audioPlayerNode : AVAudioPlayerNode!
+    var audioEngine : AVAudioEngine!
+    var audioFile : AVAudioFile!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,61 +28,73 @@ class PlaySoundsViewController: UIViewController {
         
         // Make sure the stop button is not enabled from the start
         btnStop.enabled = false
+        
+        // Get the audio file from recorder
+        audioFile = AVAudioFile(forReading: receivedAudio.getFilePath(), error: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    /** ***************************** **/
+    /// Normal values
+    /// =================
+    /// Playback rate: 1
+    /// Pitch:         0
+    /// Reverb:        0
+    /// Echo/Interval: 0
+    ///
+    ///
+    /// Ranges values
+    /// =================
+    /// Playback rate: 0.25 to 4
+    /// Pitch:         -2400 to 2400
+    /// Reverb:        0 to 100
+    /// Echo/Interval: 0 to 2
+    /** ***************************** **/
+    
+    /** Function to play the recording on a slow playback rate **/
     @IBAction func playSlowAudio(sender: UIButton) {
-        // Call the playAudio method with default pitch and the given playback rate / 1.0 = default playback rate
         playAudio(0, rate: 0.5, reverb: 0, echo: 0)
     }
     
+    /** Function to play the recording on a fast playback rate **/
     @IBAction func playFastAudio(sender: UIButton) {
-        // Call the playAudio method with default pitch and the given playback rate / 1.0 = default playback rate
         playAudio(0, rate: 1.5, reverb: 0, echo: 0)
     }
     
-    @IBAction func stopAudio(sender: UIButton) {
-        // Stop any audio
-        audioPlayerNode.stop()
-        // Disable the stop button
-        btnStop.enabled = false
-    }
-    
+    /** Function to play the recording with no effects, but the default values **/
     @IBAction func playAudioNormal(sender: UIButton) {
-        // Call the playAudio method with default pitch and the default playback rate
         playAudio(0, rate: 1, reverb: 0, echo: 0)
     }
 
+    /** Function to play the recording on a high pitch effect **/
     @IBAction func playChipmunkEffect(sender: UIButton) {
-        // Call the playAudio method with default playback rate and the given pitch / 0 = default playback rate
         playAudio(1000, rate: 1, reverb: 0, echo: 0)
     }
     
+    /** Function to play the recording on a low pitch effect **/
     @IBAction func playDarthVaderEffect(sender: UIButton) {
-        // Call the playAudio method with default playback rate and the given pitch / 0 = default playback rate
         playAudio(-1000, rate: 1, reverb: 0, echo: 0)
     }
     
+    /** Function to play the recording on a echo effect **/
     @IBAction func playEchoEffect(sender: UIButton) {
         playAudio(0, rate: 1, reverb: 0, echo: 0.2)
     }
     
+    /** Function to play the recording on a reverb effect **/
     @IBAction func playReverbEffect(sender: UIButton) {
         playAudio(0, rate: 1, reverb: 50.0, echo: 0)
     }
     
+    /** Function used to play a recorded audio using different parameters/effects **/
     private func playAudio(pitch : Float, rate: Float, reverb: Float, echo: Float) {
         // Initialize variables
-        var audioEngine = AVAudioEngine()
+        audioEngine = AVAudioEngine()
         audioPlayerNode = AVAudioPlayerNode()
-        
-        // Get the recorded audio file
-        var audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
-        // Attach it to the audio segment
         audioEngine.attachNode(audioPlayerNode)
         
         // Setting the pitch
@@ -121,6 +135,14 @@ class PlaySoundsViewController: UIViewController {
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
+    }
+    
+    /** Function used to stop the audio; connected to the UI element **/
+    @IBAction func stopAudio(sender: UIButton) {
+        // Stop any audio
+        audioPlayerNode.stop()
+        // Disable the stop button
+        btnStop.enabled = false
     }
 
     /*
