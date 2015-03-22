@@ -16,6 +16,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder : AVAudioRecorder!
     var recordedAudio : RecordedAudio!
     
+    /** Lifecylcle methods **/
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,9 +24,16 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
+        
+        // Make sure the stop button is hidden from the start; only enable it once the recording has started
         btnStop.hidden = true
+        
+        // Make sure the recording button is enabled
         btnRecord.enabled = true
-        lblRecording.hidden = true
+        
+        // Make sure the label is not hidden and the proper text is set
+        lblRecording.hidden = false
+        lblRecording.text = "Tap to record"
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,33 +41,44 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    
     @IBAction func recordAudio(sender: UIButton) {
         // Show text "recording in progress"
-        lblRecording.hidden = false
+        lblRecording.text = "Recording in progress"
+        
+        // Make sure the stop button is visible
         btnStop.hidden = false
+        
+        // Make sure the record button is disabled until the current recording is ongoing
         btnRecord.enabled = false
         
-        // Record the user's voice
+        /** Start recording the user's voice **/
+        // Set the path where to save the recording
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        
+        // Get the current date which will be used as the name of the file
         let currentDateTime = NSDate()
         let formatter = NSDateFormatter()
         formatter.dateFormat = "ddMMyyyy-HHmmss"
         let recordingName = formatter.stringFromDate(currentDateTime)+".wav"
+        // Combine the directory and filename by putting them into an array
         let pathArray = [dirPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
+        // Debugging purposes; print the filepath
         println(filePath)
         
+        // Create a session
         var session = AVAudioSession.sharedInstance()
         session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
-        
+        // Set the filepath and start recording
         audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
         audioRecorder.delegate = self
-        audioRecorder.meteringEnabled = true
+        audioRecorder.meteringEnabled = true // turns level metering on
         audioRecorder.record()
     }
     
+    /** Called when the recording has been finished; this method is actually saving the file**/
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
+        // If successful
         if (flag) {
             // Save the recorded audio
             recordedAudio = RecordedAudio()
@@ -71,6 +90,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    /** This method is used to perform transitions to next views **/
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "stopRecording") {
             let playSoundsVC : PlaySoundsViewController = segue.destinationViewController as PlaySoundsViewController
@@ -79,14 +99,16 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
 
+    /** Stop recording and reset state **/
     @IBAction func stopRecording(sender: UIButton) {
-        // Hide "reociding in progress" label
-        lblRecording.hidden = true
+        // Change "recording in progress" label to "Tap to record"; make sure it's visible
+        lblRecording.hidden = false
+        lblRecording.text = "Tap to record"
         
         // Stop the recording session
         audioRecorder.stop()
         
-        // Hide button
+        // Hide stop button
         btnStop.hidden = true
     }
 }
