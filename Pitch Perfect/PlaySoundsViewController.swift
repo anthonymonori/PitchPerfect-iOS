@@ -17,10 +17,10 @@ class PlaySoundsViewController: UIViewController {
     @IBOutlet weak var btnReset: UIButton!
     
     // Global variables
-    var receivedAudio : RecordedAudio!
-    var audioPlayerNode : AVAudioPlayerNode!
-    var audioEngine : AVAudioEngine!
-    var audioFile : AVAudioFile!
+    var receivedAudio: RecordedAudio!
+    var audioPlayerNode: AVAudioPlayerNode!
+    var audioEngine: AVAudioEngine!
+    var audioFile: AVAudioFile!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +54,24 @@ class PlaySoundsViewController: UIViewController {
     /// Reverb:        0 to 100
     /// Echo/Interval: 0 to 2
     /** ***************************** **/
+
+    // Due to the fact when changing the rate of playback using the AVAudioUnitVarispeed class, 
+    // it resemplas the audio and modifies both the rate AND the pitch. This is due to the fact,
+    // that pitch is measured in "cents" (used in measuring musical instruments) and therefore as 
+    // you change the rate, the tone is also changing, thus mimicing a more real effect of the rate. 
+    // As the pitch can be defined as pitch = 1200.0 * log2(rate), we can calculate that with the 
+    // value 1.5 we need to put the pitch -700 cents back, and with 0.5, 1200 cents above 0 to neutralize this effect.
+    //
+    // See: https://developer.apple.com/library/prerelease/ios/documentation/AVFoundation/Reference/AVAudioUnitVarispeed_Class/index.html#//apple_ref/occ/instp/AVAudioUnitVarispeed/rate
     
     /** Function to play the recording on a slow playback rate **/
     @IBAction func playSlowAudio(sender: UIButton) {
-        playAudio(0, rate: 0.5, reverb: 0, echo: 0)
+        playAudio(1200, rate: 0.5, reverb: 0, echo: 0)
     }
     
     /** Function to play the recording on a fast playback rate **/
     @IBAction func playFastAudio(sender: UIButton) {
-        playAudio(0, rate: 1.5, reverb: 0, echo: 0)
+        playAudio(-700, rate: 1.5, reverb: 0, echo: 0)
     }
     
     /** Function to play the recording with no effects, but the default values **/
@@ -119,9 +128,9 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.attachNode(echoEffect)
 
         // Chain all these up, ending with the output
-        audioEngine.connect(audioPlayerNode, to: pitchEffect, format: nil)
-        audioEngine.connect(pitchEffect, to: playbackRateEffect, format: nil)
-        audioEngine.connect(playbackRateEffect, to: reverbEffect, format: nil)
+        audioEngine.connect(audioPlayerNode, to: playbackRateEffect, format: nil)
+        audioEngine.connect(playbackRateEffect, to: pitchEffect, format: nil)
+        audioEngine.connect(pitchEffect, to: reverbEffect, format: nil)
         audioEngine.connect(reverbEffect, to: echoEffect, format: nil)
         audioEngine.connect(echoEffect, to: audioEngine.outputNode, format: nil)
         

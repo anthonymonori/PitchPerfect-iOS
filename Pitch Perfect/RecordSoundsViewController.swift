@@ -10,12 +10,12 @@ import UIKit
 import AVFoundation
 
 class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
-    @IBOutlet weak var lblRecording : UILabel!
-    @IBOutlet weak var btnStop : UIButton!
-    @IBOutlet weak var btnRecord : UIButton!
+    @IBOutlet weak var lblRecording: UILabel!
+    @IBOutlet weak var btnStop: UIButton!
+    @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnPlayback: UIButton!
-    var audioRecorder : AVAudioRecorder!
-    var recordedAudio : RecordedAudio!
+    var audioRecorder: AVAudioRecorder!
+    var recordedAudio: RecordedAudio!
     
     /** Lifecylcle methods **/
     override func viewDidLoad() {
