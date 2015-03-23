@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D105g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2Da-3o-f3y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D113c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2Da-3o-f3y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -51,7 +51,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.2891820043680246" green="0.56712350806899603" blue="0.9560287610619469" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.29019607843137252" green="0.56862745098039214" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="3VL-28-IqL" secondAttribute="bottom" constant="30" id="5TE-G1-jTJ"/>
                             <constraint firstAttribute="centerX" secondItem="Yp3-nt-wDF" secondAttribute="centerX" constant="-0.5" id="6o9-1q-N0q"/>
@@ -162,7 +162,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.23137254901960785" green="0.47843137254901963" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.2901960784" green="0.56862745100000001" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="0Ac-NB-3w9" firstAttribute="top" secondItem="gXl-3K-o3e" secondAttribute="bottom" constant="50" id="14b-jt-bQv"/>
                             <constraint firstItem="qse-UK-x3P" firstAttribute="leading" secondItem="a4J-6D-hhj" secondAttribute="leadingMargin" constant="30" id="21u-nr-hyx"/>
