@@ -2,3 +2,8 @@
 *.xcuserstate
 
 Pitch Perfect.xcodeproj/project.xcworkspace/xcuserdata/anthonymonori.xcuserdatad/UserInterfaceState.xcuserstate
+
+build/*
+*.xcuserstate
+
+*.xcuserstate
